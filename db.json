@@ -49,14 +49,6 @@
       "id": 6
     },
     {
-      "name": "Joe's Ramen #2",
-      "restaurant": "RamenStore",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Shoyu_Ramen.jpg/1200px-Shoyu_Ramen.jpg",
-      "rating": "2",
-      "comment": "Good stuff",
-      "id": 7
-    },
-    {
       "name": "Jojo",
       "restaurant": "Bizzard Locationi",
       "image": "https://3f4c2184e060ce99111b-f8c0985c8cb63a71df5cb7fd729edcab.ssl.cf2.rackcdn.com/media/15684/ramenbowls.jpg",

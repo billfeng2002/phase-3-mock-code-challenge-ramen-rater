@@ -81,7 +81,7 @@ textarea {
   width: 100%;
 }
 
-input[type="submit"] {
+input[type="submit"] , #delete-button{
   color: white;
   border: 1px solid white;
   background-color: black;

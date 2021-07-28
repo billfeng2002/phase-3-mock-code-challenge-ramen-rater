@@ -6,10 +6,12 @@ fetch('http://localhost:3000/ramens').then(r => r.json()).then(j => {
     for (const ramen of j) {
         let imgTag = document.createElement('img')
         imgTag.src = ramen.image
+        imgTag.dataset.id=ramen.id
         ramenMenu.append(imgTag)
         imgTag.addEventListener("click", () => displayRamen(ramen.id))
     }
-    displayRamen(j[0].id) //display first one upon load
+    if(j.length>0)
+        displayRamen(j[0].id) //display first one upon load
 })
 
 function displayRamen(ramenId) {
@@ -23,6 +25,8 @@ function displayRamen(ramenId) {
         ratingForm.dataset.id = ramen.id
         ratingForm.rating.value = ramen.rating
         ratingForm.comment.value = ramen.comment
+        let deleteButton=document.querySelector('#delete-button')
+        deleteButton.dataset.id=ramenId
     })
 }
 
@@ -57,7 +61,7 @@ newForm.addEventListener("submit", e=>{
     let rating=newForm.rating.value
     let comment=newForm["new-comment"].value
 
-    data={
+    let data={
         name, restaurant, image, rating, comment
     }
 
@@ -74,5 +78,19 @@ newForm.addEventListener("submit", e=>{
         ramenMenu.append(imgTag)
         imgTag.addEventListener("click", () => displayRamen(ramen.id))
         e.target.reset()
+    })
+})
+
+//listen for delete
+let deleteButton=document.querySelector('#delete-button')
+deleteButton.addEventListener('click', e=>{
+    let deleteOptions={
+        method: "DELETE"
+    }
+    let ramenId=e.target.dataset.id
+    let menuElt=[...ramenMenu.children].find(elt=>elt.dataset.id==ramenId)
+    menuElt.remove()
+    fetch("http://localhost:3000/ramens/"+ramenId,deleteOptions).then(r=>{
+        displayRamen(ramenMenu.children[0].dataset.id)
     })
 })
