@@ -46,3 +46,33 @@ ratingForm.addEventListener("submit", (e)=>{
     }
     fetch(`http://localhost:3000/ramens/${ramenId}`, patchOptions)
 })
+
+//listener for new ramen
+let newForm=document.querySelector('#new-ramen')
+newForm.addEventListener("submit", e=>{
+    e.preventDefault()
+    let name=newForm.name.value
+    let restaurant=newForm.restaurant.value
+    let image=newForm.image.value
+    let rating=newForm.rating.value
+    let comment=newForm["new-comment"].value
+
+    data={
+        name, restaurant, image, rating, comment
+    }
+
+    let postOptions={
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+    fetch(`http://localhost:3000/ramens`, postOptions).then(r=>r.json()).then(ramen=>{
+        let imgTag = document.createElement('img')
+        imgTag.src = ramen.image
+        ramenMenu.append(imgTag)
+        imgTag.addEventListener("click", () => displayRamen(ramen.id))
+        e.target.reset()
+    })
+})
